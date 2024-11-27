@@ -1,3 +1,4 @@
+# Código Python que implementa a automação descrita no trabalho
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
@@ -12,16 +13,16 @@ import subprocess
 # Função para capturar a cotação de uma moeda
 def capturar_cotacao(moeda):
     try:
-        # Configurar o WebDriver
+        # Configurar o WebDriver, pois o Selenium usando o Chromedriver não tava pegando
         options = webdriver.ChromeOptions()
         options.add_argument('--headless')  # Executar sem abrir o navegador
         driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
-        # Buscar no Google
+        # Acessar o site de cotação
         url = f"https://www.google.com/search?q=cotação+{moeda}"
         driver.get(url)
 
-        # Aguarde o carregamento do valor
+        # Aguarde o carregamento do valor na pagina
         WebDriverWait(driver, 10).until(
             EC.visibility_of_element_located((By.XPATH, "//span[@class='DFlfde SwHCTb' and @data-precision='2']"))
         )
